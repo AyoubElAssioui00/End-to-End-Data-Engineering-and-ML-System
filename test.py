@@ -87,3 +87,48 @@ import os
 #         StructField(" Label", StringType(), True)
 #     ])
 #     return schema
+import os
+from pathlib import Path
+import pandas as pd
+
+
+DATA_ROOT = Path("data/raw")
+STORE_DIR = Path("data/raw_view")
+
+
+def get_the_view_of_data(path_to_dir: Path, n_rows: int = 10) -> None:
+    """
+    Create lightweight preview CSVs (first N rows) for each raw CSV file.
+    """
+    if not path_to_dir.exists():
+        raise FileNotFoundError(f"Directory not found: {path_to_dir}")
+
+    STORE_DIR.mkdir(parents=True, exist_ok=True)
+
+    csv_files = sorted(path_to_dir.glob("*.csv"))
+
+    if not csv_files:
+        raise RuntimeError(f"No CSV files found in {path_to_dir}")
+
+    for csv_path in csv_files:
+        try:
+            df = pd.read_csv(
+                csv_path,
+                nrows=n_rows,
+                encoding="utf-8",
+                on_bad_lines="skip",
+                low_memory=False,
+            )
+
+            out_name = f"view_{csv_path.stem}.csv"
+            out_path = STORE_DIR / out_name
+            df.to_csv(out_path, index=False)
+
+            print(f"Saved preview: {out_path}")
+
+        except Exception as exc:
+            print(f"⚠️ Skipped {csv_path.name}: {exc}")
+
+
+if __name__ == "__main__":
+    get_the_view_of_data(DATA_ROOT)

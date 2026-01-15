@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     # MLFlow Configuration
     MLFLOW_TRACKING_URI: str = "http://localhost:5000"
     MLFLOW_MODEL_NAME: str = "network-anomaly-detector"
+    MLFLOW_ARTIFACT_ROOT: str = "file://./mlflow/artifacts"
     MLFLOW_MODEL_STAGE: str = "Production"  # Production, Staging, None
     
     # PySpark Configuration
