@@ -55,7 +55,7 @@ derby.log
 spark-warehouse/
 
 # MLFlow
-mlruns/
+# mlruns/
 mlartifacts/
 
 # Docker volumes

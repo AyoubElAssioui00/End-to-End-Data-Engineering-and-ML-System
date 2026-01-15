@@ -80,11 +80,11 @@ class StreamAnomalyDetector:
             StructField("timestamp", StringType(), True),
 
             # network identifiers
-            StructField("src_ip", StringType(), True),
-            StructField("dst_ip", StringType(), True),
-            StructField("src_port", IntegerType(), True),
-            StructField("dst_port", IntegerType(), True),
-            StructField("protocol", StringType(), True),
+            # StructField("src_ip", StringType(), True),
+            # StructField("dst_ip", StringType(), True),
+            # StructField("src_port", IntegerType(), True),
+            # StructField("dst_port", IntegerType(), True),
+            # StructField("protocol", StringType(), True),
             StructField("flow_id", StringType(), True),
 
             # numeric features (use DoubleType for safety)
@@ -226,8 +226,13 @@ class StreamAnomalyDetector:
         if not feature_columns:
             logger.error("predict_no_numeric_features")
             return self.spark.createDataFrame(pandas_df)
+        
+        # delete flow_id and label from feature_columns
+        feature_columns = [c for c in feature_columns if c.lower() not in ("flow_id", "label", "event_id", "active_std", "idle_std", "metadata", "timestamp", "event_type")]
 
         X = pandas_df[feature_columns].astype(float).fillna(0.0)
+
+        print(X)
 
         # try to detect expected input dim from loaded keras model (if available)
         expected_dim = None
@@ -256,14 +261,17 @@ class StreamAnomalyDetector:
                 X = X.loc[:, sorted(X.columns)]
 
         try:
+
             preds = self.model.predict(X)
         except Exception as e:
             logger.error("model_predict_failed", error=str(e))
+            logger.error("X", X=X)
             # mark all as normal fallback
             pandas_df["prediction"] = "normal"
             pandas_df["anomaly_score"] = 0.0
             pandas_df["confidence"] = 0.0
             pandas_df["model_version"] = self.model_version
+            
             pandas_df = self._sanitize_pandas_df(pandas_df)
             return self.spark.createDataFrame(pandas_df)
 

@@ -28,11 +28,11 @@ class NetworkFlowEvent(BaseEvent):
     event_type: str = "network_flow"
     
     # Optional network identifiers (may be absent in CSV-based flows)
-    src_ip: Optional[str] = None
-    dst_ip: Optional[str] = None
-    src_port: Optional[int] = None
-    dst_port: Optional[int] = None
-    protocol: Optional[str] = None
+    # src_ip: Optional[str] = None
+    # dst_ip: Optional[str] = None
+    # src_port: Optional[int] = None
+    # dst_port: Optional[int] = None
+    # protocol: Optional[str] = None
     flow_id: Optional[str] = None
 
     # Numeric features (use Optional[float] so partial records are accepted)

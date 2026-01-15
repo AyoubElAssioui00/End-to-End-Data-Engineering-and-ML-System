@@ -1,0 +1,15 @@
+artifact_uri: file:///home/mohamed-stifi/Desktop/Big-Data-project/End-to-End-Data-Engineering-and-ML-System/mlruns/341549131102907605/4cbd5534acc04eb2a587ab1b6c39367a/artifacts
+end_time: 1768452242005
+entry_point_name: ''
+experiment_id: '341549131102907605'
+lifecycle_stage: active
+run_id: 4cbd5534acc04eb2a587ab1b6c39367a
+run_name: autoencoder_train
+run_uuid: 4cbd5534acc04eb2a587ab1b6c39367a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768452163080
+status: 3
+tags: []
+user_id: mohamed-stifi

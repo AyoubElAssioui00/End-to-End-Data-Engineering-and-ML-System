@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1768452241988
+current_stage: None
+description: null
+last_updated_timestamp: 1768452241988
+name: NetworkAnomalyDetector
+run_id: 4cbd5534acc04eb2a587ab1b6c39367a
+run_link: null
+source: file:///home/mohamed-stifi/Desktop/Big-Data-project/End-to-End-Data-Engineering-and-ML-System/mlruns/341549131102907605/4cbd5534acc04eb2a587ab1b6c39367a/artifacts/autoencoder
+status: READY
+status_message: null
+storage_location: file:///home/mohamed-stifi/Desktop/Big-Data-project/End-to-End-Data-Engineering-and-ML-System/mlruns/341549131102907605/4cbd5534acc04eb2a587ab1b6c39367a/artifacts/autoencoder
+user_id: null
+version: 2

@@ -1,0 +1,10 @@
+digest: 0e1fabf8
+name: dataset
+profile: '{"features_shape": [60, 64], "features_size": 3840, "features_nbytes": 15360,
+  "targets_shape": [60, 64], "targets_size": 3840, "targets_nbytes": 15360}'
+schema: '{"mlflow_tensorspec": {"features": "[{\"type\": \"tensor\", \"tensor-spec\":
+  {\"dtype\": \"float32\", \"shape\": [-1, 64]}}]", "targets": "[{\"type\": \"tensor\",
+  \"tensor-spec\": {\"dtype\": \"float32\", \"shape\": [-1, 64]}}]"}}'
+source: '{"tags": {"mlflow.user": "mohamed-stifi", "mlflow.source.name": "scripts/train_autoencoder.py",
+  "mlflow.source.type": "LOCAL", "mlflow.source.git.commit": "8fce750ab01f13276c843daae0b543bcc4478f00"}}'
+source_type: code

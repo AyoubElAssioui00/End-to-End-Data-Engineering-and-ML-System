@@ -93,11 +93,11 @@ class NetworkTrafficSimulator:
 
                 # build event (same mapping as before)
                 event = NetworkFlowEvent(
-                    src_ip=_get_str(row, "src_ip", "Src_IP", "source_ip", "Source IP"),
-                    dst_ip=_get_str(row, "dst_ip", "Dst_IP", "destination_ip", "Destination IP"),
-                    src_port=_get_int(row, "src_port", "Src_Port", "Source Port", "source_port"),
-                    dst_port=_get_int(row, "dst_port", "Dst_Port", "Destination Port", "destination_port"),
-                    protocol=_get_str(row, "protocol", "Protocol"),
+                    # src_ip=_get_str(row, "src_ip", "Src_IP", "source_ip", "Source IP"),
+                    # dst_ip=_get_str(row, "dst_ip", "Dst_IP", "destination_ip", "Destination IP"),
+                    # src_port=_get_int(row, "src_port", "Src_Port", "Source Port", "source_port"),
+                    # dst_port=_get_int(row, "dst_port", "Dst_Port", "Destination Port", "destination_port"),
+                    # protocol=_get_str(row, "protocol", "Protocol"),
                     flow_id=_get_str(row, "flow_id", "Flow_ID", default=f"flow_{idx}"),
 
                     # numeric features (sanitized names used by preprocessing)
