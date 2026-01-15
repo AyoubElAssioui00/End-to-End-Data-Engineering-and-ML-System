@@ -21,4 +21,5 @@ dependencies = [
     "setuptools>=80.9.0",
     "streamlit==1.29.0",
     "structlog==24.1.0",
+    "tensorflow>=2.18.1",
 ]

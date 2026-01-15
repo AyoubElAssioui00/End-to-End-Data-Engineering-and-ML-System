@@ -13,10 +13,30 @@ class KafkaConsumerClient:
     
     def __init__(self, group_id: str, topics: List[str], auto_offset_reset: str = 'earliest'):
         self.group_id = f"{settings.KAFKA_CONSUMER_GROUP_PREFIX}-{group_id}"
-        self.topics = topics
+        self.topics = [self._normalize_topic(t) for t in topics]
         self.auto_offset_reset = auto_offset_reset
         self.consumer: Optional[AIOKafkaConsumer] = None
         self.running = False
+
+    def _normalize_topic(self, topic) -> str:
+        """
+        Convert topic argument (Enum, object or string) to a plain topic name string.
+        """
+        # Enum (e.g. KafkaTopics.NETWORK_FLOWS)
+        if isinstance(topic, Enum):
+            # prefer .value if it's a string, otherwise fallback to name
+            return topic.value if isinstance(topic.value, str) else topic.name
+
+        # pydantic models / objects that expose 'value' attribute with a string
+        if hasattr(topic, "value") and isinstance(getattr(topic, "value"), str):
+            return topic.value
+
+        # plain string
+        if isinstance(topic, str):
+            return topic
+
+        # fallback to str()
+        return str(topic)
     
     async def start(self):
         """Initialize and start consumer"""

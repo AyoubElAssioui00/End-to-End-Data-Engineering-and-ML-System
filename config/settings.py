@@ -12,24 +12,28 @@ class Settings(BaseSettings):
     )
     
     # Kafka Configuration
-    KAFKA_BOOTSTRAP_SERVERS: str = "localhost:9092"
+    KAFKA_BOOTSTRAP_SERVERS: str = "localhost:29092"
     KAFKA_CONSUMER_GROUP_PREFIX: str = "network-anomaly"
     KAFKA_SEND_TIMEOUT: int = 10  # seconds, adjust as needed
     
     # Data Configuration
     DATA_PATH: str = "./data/network_traffic.csv"
-    SIMULATION_DELAY: float = 0.1  # seconds between records
+    SIMULATION_DELAY: float = 10  # seconds between records
     
     # Streaming Configuration
-    BATCH_SIZE: int = 100
+    BATCH_SIZE: int = 5 #100
     BATCH_TIMEOUT_MS: int = 5000
     
     # MLFlow Configuration
     MLFLOW_TRACKING_URI: str = "http://localhost:5000"
-    MLFLOW_MODEL_NAME: str = "network-anomaly-detector"
+    MLFLOW_MODEL_NAME: str = "NetworkAnomalyDetector"     # "network-anomaly-detector"
     MLFLOW_ARTIFACT_ROOT: str = "file://./mlflow/artifacts"
     MLFLOW_MODEL_STAGE: str = "Production"  # Production, Staging, None
     
+    # Anomaly detection thresholds
+    ANOMALY_MSE_THRESHOLD: float = 1.0
+    ANOMALY_SCORE_THRESHOLD: float = 0.5
+
     # PySpark Configuration
     SPARK_APP_NAME: str = "NetworkAnomalyDetector"
     SPARK_MASTER: str = "local[*]"

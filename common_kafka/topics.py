@@ -23,25 +23,88 @@ class BaseEvent(BaseModel):
 
 
 class NetworkFlowEvent(BaseEvent):
-    """Network flow data event"""
+    """Network flow data event (fields aligned with data/network_traffic.csv)"""
     
     event_type: str = "network_flow"
     
-    # Network flow fields (adjust based on your CSV columns)
-    src_ip: str
-    dst_ip: str
-    src_port: int
-    dst_port: int
-    protocol: str
-    bytes_sent: int
-    bytes_received: int
-    packets_sent: int
-    packets_received: int
-    duration: float
-    flags: Optional[str] = None
-    
-    # Additional features
+    # Optional network identifiers (may be absent in CSV-based flows)
+    src_ip: Optional[str] = None
+    dst_ip: Optional[str] = None
+    src_port: Optional[int] = None
+    dst_port: Optional[int] = None
+    protocol: Optional[str] = None
     flow_id: Optional[str] = None
+
+    # Numeric features (use Optional[float] so partial records are accepted)
+    flow_duration: Optional[float] = None
+    total_fwd_packets: Optional[float] = None
+    total_length_of_fwd_packets: Optional[float] = None
+    fwd_packet_length_max: Optional[float] = None
+    fwd_packet_length_min: Optional[float] = None
+    fwd_packet_length_mean: Optional[float] = None
+    fwd_packet_length_std: Optional[float] = None
+    bwd_packet_length_max: Optional[float] = None
+    bwd_packet_length_min: Optional[float] = None
+    bwd_packet_length_mean: Optional[float] = None
+    bwd_packet_length_std: Optional[float] = None
+    flow_bytes_s: Optional[float] = None
+    flow_packets_s: Optional[float] = None
+    flow_iat_mean: Optional[float] = None
+    flow_iat_std: Optional[float] = None
+    flow_iat_max: Optional[float] = None
+    flow_iat_min: Optional[float] = None
+    fwd_iat_total: Optional[float] = None
+    fwd_iat_mean: Optional[float] = None
+    fwd_iat_std: Optional[float] = None
+    fwd_iat_max: Optional[float] = None
+    fwd_iat_min: Optional[float] = None
+    bwd_iat_total: Optional[float] = None
+    bwd_iat_mean: Optional[float] = None
+    bwd_iat_std: Optional[float] = None
+    bwd_iat_max: Optional[float] = None
+    bwd_iat_min: Optional[float] = None
+    bwd_psh_flags: Optional[float] = None
+    bwd_urg_flags: Optional[float] = None
+    fwd_header_length: Optional[float] = None
+    bwd_header_length: Optional[float] = None
+    fwd_packets_s: Optional[float] = None
+    bwd_packets_s: Optional[float] = None
+    min_packet_length: Optional[float] = None
+    max_packet_length: Optional[float] = None
+    packet_length_mean: Optional[float] = None
+    packet_length_std: Optional[float] = None
+    packet_length_variance: Optional[float] = None
+    fin_flag_count: Optional[float] = None
+    syn_flag_count: Optional[float] = None
+    psh_flag_count: Optional[float] = None
+    ack_flag_count: Optional[float] = None
+    cwe_flag_count: Optional[float] = None
+    average_packet_size: Optional[float] = None
+    fwd_header_length_1: Optional[float] = None
+    fwd_avg_bytes_bulk: Optional[float] = None
+    fwd_avg_packets_bulk: Optional[float] = None
+    fwd_avg_bulk_rate: Optional[float] = None
+    bwd_avg_bytes_bulk: Optional[float] = None
+    bwd_avg_packets_bulk: Optional[float] = None
+    bwd_avg_bulk_rate: Optional[float] = None
+    subflow_fwd_packets: Optional[float] = None
+    subflow_fwd_bytes: Optional[float] = None
+    subflow_bwd_packets: Optional[float] = None
+    init_win_bytes_forward: Optional[float] = None
+    init_win_bytes_backward: Optional[float] = None
+    act_data_pkt_fwd: Optional[float] = None
+    min_seg_size_forward: Optional[float] = None
+    active_mean: Optional[float] = None
+    active_std: Optional[float] = None
+    active_max: Optional[float] = None
+    active_min: Optional[float] = None
+    idle_mean: Optional[float] = None
+    idle_std: Optional[float] = None
+    idle_max: Optional[float] = None
+    idle_min: Optional[float] = None
+
+    # Optional label when present (e.g. BENIGN / attack type)
+    label: Optional[str] = None
 
 
 class AnomalyAlertEvent(BaseEvent):

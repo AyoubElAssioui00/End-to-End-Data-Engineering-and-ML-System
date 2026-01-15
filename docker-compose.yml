@@ -50,25 +50,29 @@ services:
       - kafka
       - zookeeper
   
+  
+    
   mlflow:
-    image: python:3.11-slim
+    image: ghcr.io/mlflow/mlflow:v2.10.2 # Use a recent MLflow version
     container_name: mlflow
-    restart: unless-stopped
     ports:
-      - "5000:5000"
+      - "5000:5000" # MLflow UI
     volumes:
-      - ./mlflow:/mlflow
-    depends_on:
-      - kafka
+      - ./mlruns:/mlruns # Mount the same mlruns directory as the app service
+      # You can also use a named volume for better persistence:
+      # - mlflow_data:/mlruns
     command: >
-      sh -c "pip install --no-cache-dir mlflow==2.9.2 && \
-             mkdir -p /mlflow/artifacts && \
-             mlflow server \
-               --backend-store-uri sqlite:////mlflow/mlflow.db \
-               --default-artifact-root /mlflow/artifacts \
-               --host 0.0.0.0 --port 5000"
-    environment:
-      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      mlflow server
+      --backend-store-uri file:///mlruns
+      --default-artifact-root file:///mlruns
+      --host 0.0.0.0
+      --port 5000
+    #  mlflow server \
+    #        --backend-store-uri sqlite:////mlflow/mlflow.db \
+    #        --default-artifact-root /mlflow/artifacts \
+    #        --host 0.0.0.0 --port 5000"
+
+    restart: always
 
 volumes:
   zookeeper_data:
